@@ -123,6 +123,71 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &114299149
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 114299152}
+  - component: {fileID: 114299151}
+  - component: {fileID: 114299150}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &114299150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114299149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 861cad86393b6544ab4aee62fa94943d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mobPrefabs:
+  - {fileID: 3290383767410248846, guid: bbaf8a58670ba754cb43de502ee68f89, type: 3}
+  - {fileID: 4048025602121298282, guid: 14859599169e5c847bc149c061c464a9, type: 3}
+  - {fileID: 2124972757803918460, guid: 3bf3a12fd4925b0448db8a61bc526190, type: 3}
+  rows: 4
+  columns: 9
+  stepDelay: 10
+  verticalStep: 1
+--- !u!114 &114299151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114299149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8a2ba4c5a296144bacb832f4c82a51e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &114299152
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114299149}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,9 +363,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f6ad62451fdb2a42bcf258ab477a28a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerBulletPrefab: {fileID: 0}
+  playerBulletPrefab: {fileID: 105975735533785708, guid: a0c8939854ba66944a8dfe4fe32c887d, type: 3}
   shotCooldown: 0.5
-  firePoint: {fileID: 0}
+  firePoint: {fileID: 717046569}
 --- !u!114 &1603792992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -374,7 +439,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1603792989}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.4326477, z: 0}
+  m_LocalPosition: {x: 0, y: -3.9326477, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
