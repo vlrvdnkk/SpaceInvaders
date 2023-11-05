@@ -39,12 +39,18 @@ public class MobSpawner : MonoBehaviour
 
     private IEnumerator MoveMobsDown()
     {
-
         while (true) // Зацикливаем спуск мобов
         {
-            for (int i = 0; i < mobPool.Count; i++)
+            for (int i = mobPool.Count - 1; i >= 0; i--)
             {
-                mobPool[i].transform.position += Vector3.down * verticalStep;
+                if (mobPool[i] == null) // Если моб был уничтожен, уберем его из пула
+                {
+                    mobPool.RemoveAt(i);
+                }
+                else
+                {
+                    mobPool[i].transform.position += Vector3.down * verticalStep;
+                }
             }
 
             yield return new WaitForSeconds(stepDelay); // Задержка перед следующим шагом

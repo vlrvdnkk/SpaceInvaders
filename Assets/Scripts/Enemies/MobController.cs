@@ -4,7 +4,6 @@ public class MobController : MonoBehaviour
 {
     [SerializeField] private int maxHealth = 3; // Максимальное количество попаданий, чтобы уничтожить моб
     [SerializeField] private int scoreValue = 10; // Количество очков за уничтожение моба
-    [SerializeField] private ScoreManager scoreManager;
     private int currentHealth; // Текущее здоровье моба
 
     private void Start()
@@ -32,10 +31,9 @@ public class MobController : MonoBehaviour
         }
     }
 
-    // Метод вызывается при уничтожении моба
     private void Die()
     {
-        scoreManager.AddScore(scoreValue); // Увеличиваем счет
-        Destroy(gameObject); // Уничтожаем моб
+        GameObject.Find("GameController").GetComponent<ScoreManager>().AddScore(scoreValue);
+        Destroy(gameObject);
     }
 }
