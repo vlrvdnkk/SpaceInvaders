@@ -4,13 +4,15 @@ using System.Collections;
 
 public class MobSpawner : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> mobPrefabs; // Список префабов разных видов мобов
-    [SerializeField] private int rows = 6; // Количество рядов мобов
-    [SerializeField] private int columns = 11; // Количество мобов в ряду
+    [SerializeField] private List<GameObject> mobPrefabs;
+    [SerializeField] private GameController gameController;
+    [SerializeField] private int rows = 6;
+    [SerializeField] private int columns = 11;
     [SerializeField] private float stepDelay = 10.0f;
     [SerializeField] private float verticalStep = 1.0f;
 
     private List<GameObject> mobPool = new List<GameObject>();
+    private int counter = 4;
 
     private void Start()
     {
@@ -20,7 +22,7 @@ public class MobSpawner : MonoBehaviour
 
     private void CreateMobPool()
     {
-        int middleColumn = columns / 2; // Середина ряда
+        int middleColumn = columns / 2;
 
         for (int row = 0; row < rows; row++)
         {
@@ -28,7 +30,7 @@ public class MobSpawner : MonoBehaviour
 
             for (int col = 0; col < columns; col++)
             {
-                int offset = col - middleColumn; // Расчет смещения от середины
+                int offset = col - middleColumn;
 
                 Vector3 spawnPosition = transform.position + Vector3.right * offset + Vector3.up * row * verticalStep;
                 GameObject mob = Instantiate(mobPrefabs[randomMobIndex], spawnPosition, Quaternion.identity);
@@ -39,12 +41,18 @@ public class MobSpawner : MonoBehaviour
 
     private IEnumerator MoveMobsDown()
     {
-        while (true) // Зацикливаем спуск мобов
+        while (counter >= 0)
         {
+            yield return new WaitForSeconds(stepDelay);
+
             for (int i = mobPool.Count - 1; i >= 0; i--)
             {
-                if (mobPool[i] == null) // Если моб был уничтожен, уберем его из пула
+                if (mobPool[i] == null)
                 {
+                    if (mobPool.Count == 0)
+                    {
+                        gameController.GameWin();
+                    }
                     mobPool.RemoveAt(i);
                 }
                 else
@@ -52,8 +60,8 @@ public class MobSpawner : MonoBehaviour
                     mobPool[i].transform.position += Vector3.down * verticalStep;
                 }
             }
-
-            yield return new WaitForSeconds(stepDelay); // Задержка перед следующим шагом
+            counter--;
         }
+        gameController.GameOver();
     }
 }

@@ -1,30 +1,42 @@
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    private bool isGameOver = false;
 
-    //[SerializeField] private Text gameOverText;
+    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private GameObject gameWinPanel;
 
     private void Start()
     {
-        //gameOverText.gameObject.SetActive(false);
+        Time.timeScale = 1;
+        gameOverPanel.gameObject.SetActive(false);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void Update()
     {
-        if (other.CompareTag("Mob") && !isGameOver)
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            GameOver();
+            RestartGame();
         }
     }
 
-    private void GameOver()
+    public void GameOver()
     {
-        //isGameOver = true;
-        //// Отображаем сообщение о проигрыше
-        //gameOverText.gameObject.SetActive(true);
+        gameOverPanel.gameObject.SetActive(true);
         Time.timeScale = 0;
+    }
+
+    public void GameWin()
+    {
+        gameWinPanel.gameObject.SetActive(true);
+        GameObject.Find("GameController").GetComponent<ScoreManager>().EndScoreText();
+        Time.timeScale = 0;
+    }
+
+    private void RestartGame()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
     }
 }

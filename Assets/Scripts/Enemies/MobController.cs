@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class MobController : MonoBehaviour
 {
-    [SerializeField] private int maxHealth = 3; // ћаксимальное количество попаданий, чтобы уничтожить моб
-    [SerializeField] private int scoreValue = 10; //  оличество очков за уничтожение моба
-    private int currentHealth; // “екущее здоровье моба
+    [SerializeField] private int maxHealth = 3;
+    [SerializeField] private int scoreValue = 10;
+    private int currentHealth;
 
     private void Start()
     {
-        currentHealth = maxHealth; // »нициализируем здоровье моба
+        currentHealth = maxHealth;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -16,11 +16,10 @@ public class MobController : MonoBehaviour
         if (collision.CompareTag("Bullet"))
         {
             TakeDamage();
-            Destroy(collision.gameObject); // ”ничтожаем пулю после попадани€
+            Destroy(collision.gameObject);
         }
     }
 
-    // ћетод дл€ обработки попадани€ пули
     private void TakeDamage()
     {
         currentHealth--;

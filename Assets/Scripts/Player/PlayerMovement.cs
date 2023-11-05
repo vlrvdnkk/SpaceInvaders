@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 playerPosition = transform.position;
 
         playerPosition.x += horizontalInput * playerMovementSpeed * Time.deltaTime;
-        playerPosition.x = Mathf.Clamp(playerPosition.x, -9, 9); // Ограничение движения по горизонтали
+        playerPosition.x = Mathf.Clamp(playerPosition.x, -8.2f, 8.2f);
         transform.position = playerPosition;
     }
 }
