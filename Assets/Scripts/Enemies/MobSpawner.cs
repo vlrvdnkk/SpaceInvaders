@@ -22,13 +22,17 @@ public class MobSpawner : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(counter);
         timer -= Time.deltaTime;
 
         if (timer <= 0 && counter >= 0)
         {
             MoveMobsDown();
             timer = stepDelay;
+        }
+
+        if (counter < 0)
+        {
+            gameController.GameOver();
         }
 
         for (int row = mobRows.Count - 1; row >= 0; row--)
@@ -53,11 +57,6 @@ public class MobSpawner : MonoBehaviour
                 }
                 else
                     counter++;
-
-                if (counter <= 0)
-                {
-                    gameController.GameOver();
-                }
             }
         }
     }

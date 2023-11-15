@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     {
         Time.timeScale = 1;
         gameOverPanel.gameObject.SetActive(false);
+        gameWinPanel.gameObject.SetActive(false);
     }
 
     private void Update()
