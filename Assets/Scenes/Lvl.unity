@@ -159,8 +159,8 @@ MonoBehaviour:
   - {fileID: 4048025602121298282, guid: 14859599169e5c847bc149c061c464a9, type: 3}
   - {fileID: 2124972757803918460, guid: 3bf3a12fd4925b0448db8a61bc526190, type: 3}
   gameController: {fileID: 114299151}
-  rows: 2
-  columns: 3
+  rows: 4
+  columns: 5
   stepDelay: 10
   verticalStep: 1
 --- !u!114 &114299151

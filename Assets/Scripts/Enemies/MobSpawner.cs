@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Collections;
 
 public class MobSpawner : MonoBehaviour
 {
@@ -11,13 +10,56 @@ public class MobSpawner : MonoBehaviour
     [SerializeField] private float stepDelay = 10.0f;
     [SerializeField] private float verticalStep = 1.0f;
 
-    private List<GameObject> mobPool = new List<GameObject>();
+    private List<List<GameObject>> mobRows = new List<List<GameObject>>();
     private int counter = 4;
+    private float timer;
 
     private void Start()
     {
         CreateMobPool();
-        StartCoroutine(MoveMobsDown());
+        timer = stepDelay;
+    }
+
+    private void Update()
+    {
+        Debug.Log(counter);
+        timer -= Time.deltaTime;
+
+        if (timer <= 0 && counter >= 0)
+        {
+            MoveMobsDown();
+            timer = stepDelay;
+        }
+
+        for (int row = mobRows.Count - 1; row >= 0; row--)
+        {
+            bool rowDestroyed = true;
+
+            for (int col = 0; col < mobRows[row].Count; col++)
+            {
+                if (mobRows[row][col] != null)
+                {
+                    rowDestroyed = false;
+                    break;
+                }
+            }
+
+            if (rowDestroyed)
+            {
+                mobRows.RemoveAt(row);
+                if (mobRows.Count == 0)
+                {
+                    gameController.GameWin();
+                }
+                else
+                    counter++;
+
+                if (counter <= 0)
+                {
+                    gameController.GameOver();
+                }
+            }
+        }
     }
 
     private void CreateMobPool()
@@ -27,6 +69,7 @@ public class MobSpawner : MonoBehaviour
         for (int row = 0; row < rows; row++)
         {
             int randomMobIndex = Random.Range(0, mobPrefabs.Count);
+            List<GameObject> rowList = new List<GameObject>();
 
             for (int col = 0; col < columns; col++)
             {
@@ -34,34 +77,25 @@ public class MobSpawner : MonoBehaviour
 
                 Vector3 spawnPosition = transform.position + Vector3.right * offset + Vector3.up * row * verticalStep;
                 GameObject mob = Instantiate(mobPrefabs[randomMobIndex], spawnPosition, Quaternion.identity);
-                mobPool.Add(mob);
+                rowList.Add(mob);
             }
+
+            mobRows.Add(rowList);
         }
     }
 
-    private IEnumerator MoveMobsDown()
+    private void MoveMobsDown()
     {
-        while (counter >= 0)
+        for (int row = mobRows.Count - 1; row >= 0; row--)
         {
-            yield return new WaitForSeconds(stepDelay);
-
-            for (int i = mobPool.Count - 1; i >= 0; i--)
+            for (int col = 0; col < mobRows[row].Count; col++)
             {
-                if (mobPool[i] == null)
+                if (mobRows[row][col] != null)
                 {
-                    if (mobPool.Count == 0)
-                    {
-                        gameController.GameWin();
-                    }
-                    mobPool.RemoveAt(i);
-                }
-                else
-                {
-                    mobPool[i].transform.position += Vector3.down * verticalStep;
+                    mobRows[row][col].transform.position += Vector3.down * verticalStep;
                 }
             }
-            counter--;
         }
-        gameController.GameOver();
+        counter--;
     }
 }
